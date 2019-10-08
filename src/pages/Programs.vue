@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import DataTable from 'components/DataTable'
+import DataTable from "components/DataTable";
 export default {
   name: "PagePrograms",
-  components: {DataTable},
+  components: { DataTable },
   methods: {
     onClick() {
       alert("Clicked!");

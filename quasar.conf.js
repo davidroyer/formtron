@@ -1,5 +1,4 @@
-// Configuration for your app
-// https://quasar.dev/quasar-cli/quasar-conf-js
+const env = require("quasar-dotenv").config();
 
 module.exports = function(ctx) {
   return {
@@ -51,6 +50,7 @@ module.exports = function(ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
+      env: env,
       // vueRouterMode: 'history',
       // showProgress: false,
       // gzip: true,
@@ -69,12 +69,6 @@ module.exports = function(ctx) {
             formatter: require("eslint").CLIEngine.getFormatter("stylish")
           }
         });
-        cfg.resolve.alias = {
-          ...cfg.resolve.alias // This adds the existing alias
-
-          // Add your own alias like this
-          // ejs: "ejs.min.js"
-        };
       }
 
       // chainWebpack(chain, { isServer, isClient }) {
@@ -161,6 +155,7 @@ module.exports = function(ctx) {
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
+        // platform: "win32"
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',

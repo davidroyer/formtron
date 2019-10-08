@@ -25,12 +25,14 @@
 
         <q-space />
 
-        <q-tabs shrink stretch>
-          <q-route-tab label="Programs" to="/programs" exact />
-          <q-route-tab label="Groups" to="/program-groups" exact />
-          <q-route-tab label="Forms" to="/forms" exact />
-          <q-route-tab label="Github" to="/github" exact />
-        </q-tabs>
+        <div>
+          <q-tabs shrink stretch>
+            <q-route-tab label="Programs" to="/programs" exact />
+            <q-route-tab label="Groups" to="/program-groups" exact />
+            <q-route-tab label="Forms" to="/forms" exact />
+            <q-route-tab label="Github" to="/github" exact />
+          </q-tabs>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -42,6 +44,11 @@
       <q-tabs no-caps active-color="primary" indicator-color="transparent">
         <q-route-tab icon="help" to="/faq" label="FAQ" exact />
         <q-route-tab icon="settings" label="Settings" to="/settings" exact />
+
+        <q-route-tab label="Programs" to="/programs" exact />
+        <q-route-tab label="Groups" to="/program-groups" exact />
+        <q-route-tab label="Forms" to="/forms" exact />
+        <q-route-tab label="Github" to="/github" exact />
       </q-tabs>
     </q-footer>
   </q-layout>
