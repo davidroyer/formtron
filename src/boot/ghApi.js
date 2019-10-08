@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const baseURL = `https://api.github.com/repos/thelearninghouse/marketing-forms`;
-const ghToken = "8e8df421789a08a5df99f3f5cb037ed9b4a410e9";
+const ghToken = "7086a3e2461d6cc510120369ed1a5a1f5f583d2f";
 
 // We create our own axios instance and set a custom base URL.
 // Note that if we wouldn't set any config here we do not need

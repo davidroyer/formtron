@@ -69,9 +69,23 @@ module.exports = function(ctx) {
             formatter: require("eslint").CLIEngine.getFormatter("stylish")
           }
         });
-      }
-    },
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias // This adds the existing alias
 
+          // Add your own alias like this
+          // ejs: "ejs.min.js"
+        };
+      }
+
+      // chainWebpack(chain, { isServer, isClient }) {
+      //   chain.resolve.alias.set("ejs", "ejs/ejs.min.js");
+      // }
+    },
+    //   resolve: {
+    //     alias: {
+    //       'ejs': 'ejs.min.js'
+    //     }
+    //  }
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       // https: true,

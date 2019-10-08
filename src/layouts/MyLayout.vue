@@ -1,13 +1,9 @@
 <template>
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
-    <q-header
-      elevated
-      class="q-electron-drag bg-white text-grey-8"
-      height-hint="64"
-    >
+    <q-header class="q-electron-drag" height-hint="64">
       <q-toolbar class="GNL__toolbar">
         <q-btn
-          v-if="$q.screen.lt.lg"
+          v-if="$q.screen.lt.md"
           flat
           dense
           round
@@ -22,260 +18,43 @@
           shrink
           class="row items-center no-wrap"
         >
-          <!-- <img
-            src="https://cdn.quasar.dev/img/layout-gallery/logo-google.svg"
-          /> -->
+          <img alt="Quasar logo" src="~assets/rate_review-24px.svg" />
+
           <span class="q-ml-sm">FormTron</span>
         </q-toolbar-title>
 
         <q-space />
 
-        <q-input
-          class="GNL__toolbar-input"
-          outlined
-          dense
-          v-model="search"
-          color="bg-grey-7 shadow-1"
-          placeholder="Search for topics, locations & sources"
-        >
-          <template v-slot:prepend>
-            <q-icon v-if="search === ''" name="search" />
-            <q-icon
-              v-else
-              name="clear"
-              class="cursor-pointer"
-              @click="search = ''"
-            />
-          </template>
-          <template v-slot:append>
-            <q-btn flat dense round aria-label="Menu" icon="arrow_drop_down">
-              <q-menu anchor="bottom right" self="top right">
-                <div class="q-pa-md" style="width: 400px">
-                  <div class="text-body2 text-grey q-mb-md">
-                    Narrow your search results
-                  </div>
-
-                  <div class="row items-center">
-                    <div class="col-3 text-subtitle2 text-grey">
-                      Exact phrase
-                    </div>
-                    <div class="col-9 q-pl-md">
-                      <q-input dense v-model="exactPhrase" />
-                    </div>
-
-                    <div class="col-3 text-subtitle2 text-grey">
-                      Has words
-                    </div>
-                    <div class="col-9 q-pl-md">
-                      <q-input dense v-model="hasWords" />
-                    </div>
-
-                    <div class="col-3 text-subtitle2 text-grey">
-                      Exclude words
-                    </div>
-                    <div class="col-9 q-pl-md">
-                      <q-input dense v-model="excludeWords" />
-                    </div>
-
-                    <div class="col-3 text-subtitle2 text-grey">
-                      Website
-                    </div>
-                    <div class="col-9 q-pl-md">
-                      <q-input dense v-model="byWebsite" />
-                    </div>
-
-                    <div class="col-12 q-pt-lg row justify-end">
-                      <q-btn
-                        flat
-                        dense
-                        no-caps
-                        color="grey-7"
-                        size="md"
-                        style="min-width: 68px;"
-                        label="Search"
-                        v-close-popup
-                      />
-                      <q-btn
-                        flat
-                        dense
-                        no-caps
-                        color="grey-7"
-                        size="md"
-                        style="min-width: 68px;"
-                        @click="onClear"
-                        label="Clear"
-                        v-close-popup
-                      />
-                    </div>
-                  </div>
-                </div>
-              </q-menu>
-            </q-btn>
-          </template>
-        </q-input>
-
-        <q-space />
-
-        <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn
-            v-if="$q.screen.gt.sm"
-            round
-            dense
-            flat
-            color="text-grey-7"
-            icon="apps"
-          >
-            <q-tooltip>Google Apps</q-tooltip>
-          </q-btn>
-          <q-btn round dense flat color="grey-8" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
-              2
-            </q-badge>
-            <q-tooltip>Notifications</q-tooltip>
-          </q-btn>
-          <q-btn round flat>
-            <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-            </q-avatar>
-            <q-tooltip>Account</q-tooltip>
-          </q-btn>
-        </div>
+        <q-tabs shrink stretch>
+          <q-route-tab label="Programs" to="/programs" exact />
+          <q-route-tab label="Groups" to="/program-groups" exact />
+          <q-route-tab label="Forms" to="/forms" exact />
+          <q-route-tab label="Github" to="/github" exact />
+        </q-tabs>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-white"
-      :width="280"
-    >
-      <q-scroll-area class="fit">
-        <q-item-label class="q-mt-sm" header>Main Functionality</q-item-label>
-        <q-list class="rounded-borders">
-          <q-expansion-item
-            expand-separator
-            icon="perm_identity"
-            label="Account Settings"
-            caption="David Royer"
-          >
-            <q-card>
-              <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item expand-separator icon="settings" label="Settings">
-            <q-card>
-              <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item
-            expand-separator
-            icon="school"
-            label="Schools"
-            header-class="text-purple"
-          >
-            <q-card>
-              <q-card-section>
-                <q-item
-                  :header-inset-level="1"
-                  class="GNL__drawer-item"
-                  v-ripple
-                  v-for="link in schoolList"
-                  :key="link.text"
-                  clickable
-                >
-                  <q-item-section>
-                    <q-item-label>{{ link.text }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-separator />
-        </q-list>
-
-        <q-item-label class="q-mt-sm" header>Other Items</q-item-label>
-        <q-list class="rounded-borders">
-          <q-expansion-item expand-separator icon="help" label="FAQ">
-            <q-card>
-              <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item expand-separator icon="build" label="Form Builder">
-            <q-card>
-              <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item
-            expand-separator
-            icon="dynamic_feed"
-            label="Program Groups"
-          >
-            <q-card>
-              <q-card-section>
-                <q-item
-                  :header-inset-level="1"
-                  class="GNL__drawer-item"
-                  v-ripple
-                  v-for="link in schoolList"
-                  :key="link.text"
-                  clickable
-                >
-                  <q-item-section>
-                    <q-item-label>{{ link.text }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-
-          <q-expansion-item
-            expand-separator
-            icon="folder"
-            label="Github Directories"
-          >
-            <q-card>
-              <q-card-section>
-                <q-item
-                  :header-inset-level="1"
-                  class="GNL__drawer-item"
-                  v-ripple
-                  v-for="link in ghDirectories"
-                  :key="link.path"
-                  clickable
-                >
-                  <q-item-section>
-                    <q-item-label>{{ link.name }}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-card-section>
-            </q-card>
-          </q-expansion-item>
-          <q-separator />
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
-
     <q-page-container>
+      <!-- <q-btn @click="createFile" label="Save New File"></q-btn> -->
       <router-view />
     </q-page-container>
+    <q-footer bordered class="bg-white text-primary">
+      <q-tabs no-caps active-color="primary" indicator-color="transparent">
+        <q-route-tab icon="help" to="/faq" label="FAQ" exact />
+        <q-route-tab icon="settings" label="Settings" to="/settings" exact />
+      </q-tabs>
+    </q-footer>
   </q-layout>
 </template>
 
 <script>
+// eslint-disable-next-line no-undef
+// import fs from "fs-extra";
+
+// import path from "path";
+// import { remote } from "electron";
+
+// const filePath = path.join(remote.app.getPath("userData"), "/some.vue");
 export default {
   name: "GoogleNewsLayout",
 
@@ -323,8 +102,12 @@ export default {
 
   computed: {
     ghDirectories() {
-      return this.ghData.filter(item => item.type === "dir");
-      // return this.ghData(item => item.type === "dir");
+      return this.ghData.filter(
+        item =>
+          item.type === "dir" &&
+          !item.name.startsWith(".") &&
+          !item.name !== "node_modules"
+      );
     }
   },
 
@@ -333,9 +116,15 @@ export default {
   },
 
   methods: {
+    // createFile() {
+    //   fs.outputFile(filePath, "FILE CONTENTS")
+    //     .then(() => console.log("Done!"))
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
+    // },
+
     async getGithubData() {
-      // const ghDirectory = "fdu";
-      // const { data } = await this.$ghApi.get(`/contents/${ghDirectory}`);
       const { data } = await this.$ghApi.get(`/contents`);
       this.ghData = data;
     },
@@ -388,4 +177,28 @@ export default {
 
     &:hover
       color: #000
+</style>
+
+<style lang="scss">
+.page-left-enter-active,
+.page-left-leave-active,
+.page-right-enter-active,
+.page-right-leave-active {
+  transition-duration: 0.5s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+.page-left-enter,
+.page-right-leave-active {
+  opacity: 0;
+  transform: translate(2em, 0);
+}
+
+.page-left-leave-active,
+.page-right-enter {
+  opacity: 0;
+  transform: translate(-2em, 0);
+}
 </style>
