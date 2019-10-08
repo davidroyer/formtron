@@ -1,0 +1,27 @@
+<%# use an title value given, or default to the String 'Untitled' %>
+
+
+
+<h1><%= title || 'Untitled'%></h1>
+<h2>This is my first EJS file</h2>
+
+<% var nums = numbers ? numbers: [1,2,3] %>
+
+<ul>
+    <% nums.forEach((n) => { %>
+
+    <li><%= n %></li>
+
+    <% }) %>
+</ul>
+
+<% Object.keys(formSettings).forEach((setting) => { %>
+<h3><%= setting %></h3>    
+<pre><%= formSettings[setting] %></pre>
+<% }) %>
+
+<% if (stepForm) { %>
+<p> STEP FORM!!!</p>
+<%} else { %>
+<p> No STEP FORM </p>
+<% } %>
