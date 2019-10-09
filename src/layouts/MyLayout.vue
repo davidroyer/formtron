@@ -37,7 +37,8 @@
     </q-header>
 
     <q-page-container>
-      <!-- <q-btn @click="createFile" label="Save New File"></q-btn> -->
+      <q-btn @click="getGithubFile" label="Get Github File"></q-btn>
+      <q-btn @click="createGithubFile" label="Create New File"></q-btn>
       <router-view />
     </q-page-container>
     <q-footer bordered class="bg-white text-primary">
@@ -55,6 +56,12 @@
 </template>
 
 <script>
+const fileContent = `# File1C - WORKING WITH ASYNC
+
+Demo Admin App for Wiley Forms
+
+## Install the dependencies
+`;
 // eslint-disable-next-line no-undef
 // import fs from "fs-extra";
 
@@ -135,6 +142,21 @@ export default {
       const { data } = await this.$ghApi.get(`/contents`);
       this.ghData = data;
     },
+
+    async createGithubFile() {
+      const response = await this.$ghApi.put("/contents/TestFile2.md", {
+        message: "Testing API",
+        content: btoa(fileContent)
+      });
+      console.log("create response", response);
+    },
+
+    async getGithubFile() {
+      const { data } = await this.$ghApi.get("/contents/Notes.md");
+      console.log("create data", data);
+      console.log("File Content", atob(data.content));
+    },
+
     onClear() {
       this.exactPhrase = "";
       this.hasWords = "";
