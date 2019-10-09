@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
     <q-header class="q-electron-drag" height-hint="64">
       <q-toolbar class="GNL__toolbar">
-        <q-btn
+        <!-- <q-btn
           v-if="$q.screen.lt.md"
           flat
           dense
@@ -11,7 +11,7 @@
           aria-label="Menu"
           icon="menu"
           class="q-mr-sm"
-        />
+        /> -->
 
         <q-toolbar-title
           v-if="$q.screen.gt.xs"
@@ -29,7 +29,7 @@
           <q-tabs shrink stretch>
             <q-route-tab label="Programs" to="/programs" exact />
             <q-route-tab label="Groups" to="/program-groups" exact />
-            <q-route-tab label="Forms" to="/forms" exact />
+            <q-route-tab label="Form Builder" to="/forms" exact />
             <q-route-tab label="Github" to="/github" exact />
           </q-tabs>
         </div>
@@ -37,40 +37,25 @@
     </q-header>
 
     <q-page-container>
-      <q-btn @click="getGithubFile" label="Get Github File"></q-btn>
-      <q-btn @click="createGithubFile" label="Create New File"></q-btn>
-      <router-view />
+      <transition name="slide-fade" mode="out-in">
+        <router-view class="view" />
+      </transition>
     </q-page-container>
+
     <q-footer bordered class="bg-white text-primary">
       <q-tabs no-caps active-color="primary" indicator-color="transparent">
         <q-route-tab icon="help" to="/faq" label="FAQ" exact />
         <q-route-tab icon="settings" label="Settings" to="/settings" exact />
-
-        <q-route-tab label="Programs" to="/programs" exact />
-        <q-route-tab label="Groups" to="/program-groups" exact />
-        <q-route-tab label="Forms" to="/forms" exact />
-        <q-route-tab label="Github" to="/github" exact />
       </q-tabs>
     </q-footer>
   </q-layout>
 </template>
 
 <script>
-const fileContent = `# File1C - WORKING WITH ASYNC
-
-Demo Admin App for Wiley Forms
-
-## Install the dependencies
-`;
 // eslint-disable-next-line no-undef
-// import fs from "fs-extra";
 
-// import path from "path";
-// import { remote } from "electron";
-
-// const filePath = path.join(remote.app.getPath("userData"), "/some.vue");
 export default {
-  name: "GoogleNewsLayout",
+  name: "AppLayout",
 
   data() {
     return {
@@ -125,38 +110,7 @@ export default {
     }
   },
 
-  async created() {
-    await this.getGithubData();
-  },
-
   methods: {
-    // createFile() {
-    //   fs.outputFile(filePath, "FILE CONTENTS")
-    //     .then(() => console.log("Done!"))
-    //     .catch(err => {
-    //       console.error(err);
-    //     });
-    // },
-
-    async getGithubData() {
-      const { data } = await this.$ghApi.get(`/contents`);
-      this.ghData = data;
-    },
-
-    async createGithubFile() {
-      const response = await this.$ghApi.put("/contents/TestFile2.md", {
-        message: "Testing API",
-        content: btoa(fileContent)
-      });
-      console.log("create response", response);
-    },
-
-    async getGithubFile() {
-      const { data } = await this.$ghApi.get("/contents/Notes.md");
-      console.log("create data", data);
-      console.log("File Content", atob(data.content));
-    },
-
     onClear() {
       this.exactPhrase = "";
       this.hasWords = "";
