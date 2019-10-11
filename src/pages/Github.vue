@@ -1,17 +1,29 @@
 <template>
   <q-page padding>
     <p>Github Directories & Actions</p>
-    <q-btn @click="getGithubFile" label="Get Github File"></q-btn>
-    <q-btn @click="createGithubFile" label="Create New File"></q-btn>
-
-    <div class="q-pa-md" style="max-width: 400px">
-      <q-list bordered separator>
-        <q-item v-for="link in ghList" :key="link.path" v-ripple clickable>
-          <q-item-section>
-            <q-item-label>{{ link.name }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <q-btn @click="getGithubFile" label="Get Github File"></q-btn>
+        <q-btn @click="createGithubFile" label="Create New File"></q-btn>
+        <div class="q-pa-md" style="max-width: 400px">
+          <q-list bordered separator>
+            <q-item
+              @click="getDirectoryContent(link)"
+              v-for="link in ghList"
+              :key="link.path"
+              v-ripple
+              clickable
+            >
+              <q-item-section>
+                <q-item-label>{{ link.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <pre>{{ directoryContents }}</pre>
+      </div>
     </div>
   </q-page>
 </template>
@@ -25,11 +37,13 @@ Demo Admin App for Wiley Forms
 `;
 export default {
   data: () => ({
-    ghRepoContents: []
+    ghRepoContents: [],
+    activeDirectory: {},
+    directoryContents: {}
   }),
 
   async created() {
-    await this.getGithubData();
+    this.ghRepoContents = await this.getGithubData();
   },
 
   computed: {
@@ -44,9 +58,14 @@ export default {
   },
 
   methods: {
-    async getGithubData() {
-      const { data } = await this.$ghApi.get(`/contents`);
-      this.ghRepoContents = data;
+    async getDirectoryContent(link) {
+      this.activeDirectory = link;
+      this.directoryContents = await this.getGithubData(link.path);
+    },
+
+    async getGithubData(path = "") {
+      const { data } = await this.$ghApi.get(`/contents/${path}`);
+      return data;
     },
 
     async createGithubFile() {

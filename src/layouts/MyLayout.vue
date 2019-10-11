@@ -1,18 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
-    <q-header class="q-electron-drag" height-hint="64">
+    <q-header elevated class="q-electron-drag" height-hint="64">
       <q-toolbar class="GNL__toolbar">
-        <!-- <q-btn
-          v-if="$q.screen.lt.md"
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          icon="menu"
-          class="q-mr-sm"
-        /> -->
-
         <q-toolbar-title
           v-if="$q.screen.gt.xs"
           shrink
@@ -20,7 +9,7 @@
         >
           <img alt="Quasar logo" src="~assets/rate_review-24px.svg" />
 
-          <span class="q-ml-sm">FormTron</span>
+          <span class="q-ml-sm">Wiley Forms Admin</span>
         </q-toolbar-title>
 
         <q-space />
