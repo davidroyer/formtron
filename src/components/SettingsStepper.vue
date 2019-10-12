@@ -10,7 +10,7 @@
     >
       <q-step
         :name="1"
-        title="First Step In Settings"
+        title="Form Templates To use"
         icon="settings"
         :done="step > 1"
       >
