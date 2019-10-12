@@ -95,13 +95,11 @@ export default {
       this.formStarterTemplates = await this.getGithubData(".TEMPLATES");
     },
 
-    async createNewFormTemplate() {
-      this.formStarterTemplates = await this.getGithubData(".TEMPLATES");
-    },
+    async createNewFormTemplate() {},
 
-    async getDirectoryContent(link) {
-      this.activeDirectory = link;
-      this.directoryContents = await this.getGithubData(link.path);
+    async getDirectoryContent(dir) {
+      this.activeDirectory = dir;
+      this.directoryContents = await this.getGithubData(dir.path);
     },
 
     async getGithubData(path = "") {
@@ -110,20 +108,10 @@ export default {
     },
 
     async createGithubFile(path = "", content) {
-      console.log("TCL: createGithubFile -> path", path);
-      console.log("TCL: createGithubFile -> content", content);
-      // await Promise.resolve();
       await this.$ghApi.put(`/contents/${path}`, {
         content,
         message: "New Form Template File"
       });
-      // console.log("create response", response);
-    },
-
-    async getGithubFile() {
-      const { data } = await this.$ghApi.get("/contents/Notes.md");
-      console.log("create data", data);
-      console.log("File Content", atob(data.content));
     }
   }
 };
